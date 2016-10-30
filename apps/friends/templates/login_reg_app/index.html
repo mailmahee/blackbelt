@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login/Registration</title>
+	{% load staticfiles%}
+	{% include './header.html' %}
+
+	<style>
+		 body{
+				 background-image: url({% static "login_reg_app/img/logo.jpg" %});
+				 background-size: cover;
+				 background-repeat: repeat;
+		 }
+	</style>
+</head>
+<body>
+	<div class="container " style="color: white;font-family: Papyrus, fantasy;">
+<div style="margin-top:25%;">
+	<div class='col-xs-5 well' style="background: rgba(46, 51, 56, 0.5);">
+		<h4>Register</h4>
+		<br>
+
+<!====================================Full Name====================================>
+
+		<form action="/register" method="POST">
+			{% csrf_token %}
+			<div class='form-group'>
+					<label for='name'> Name:
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_name' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+					</label>
+					<input class="form-control" type="text" name="name" placeholder="Enter you Full Name"/>
+			</div>
+
+
+<!====================================Alias====================================>
+			<div class='form-group'>
+					<label for='uname'>Alias:
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_uname' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+					</label>
+					<input class="form-control" type="text" name="uname" placeholder="Your friends are going to call you with this name!"/>
+			</div>
+
+
+<!====================================Email====================================>
+
+			<div class='form-group'>
+					<label for='email'>Email:
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_uemail' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+					</label>
+					<input type="email" class="form-control" name="uemail" placeholder="Enter email">
+			</div>
+
+<!====================================Password====================================>
+			<div class='form-group'>
+					<label for='password'>Password (8+ characters):
+					{% if messages %}
+						{% for message in messages %}
+						 {% if 'regis_pwdshort' in message.tags %}
+										<span class="error" style="color:yellow";>{{ message }}</span>
+						{%endif%}
+						{% endfor %}
+					 {% endif %}
+					</label>
+					<input class="form-control" type="password" name="password"/>
+			</div>
+
+<!====================================confirm password====================================>
+
+			<div class='form-group'>
+					<label for='passwordConfirm'>Confirm Password:
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_pwdmatch' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+					</label>
+					<input class="form-control " type="password" name="confirm_pw"/>
+			</div>
+
+
+<!====================================Date of Birth====================================>
+
+			<div class="form-group">
+					<label>Date of Birth :
+						{% if messages %}
+							{% for message in messages %}
+							 {% if 'regis_dob' in message.tags %}
+											<span class="error" style="color:yellow";>{{ message }}</span>
+							{%endif%}
+							{% endfor %}
+						 {% endif %}
+					</label>
+					<div>
+							<div class="input-group date col-sm-12">
+									<input type="date" class="form-control" name="dob" />
+							</div>
+					</div>
+			</div>
+
+
+<!====================================register====================================>
+					<div class='form-group'>
+						<input class='btn btn-success pull-right' type="submit" value="Register" role='button'/>
+					</div>
+		</form>
+	</div>
+
+	<div class='col-xs-5 col-xs-offset-2 well' style="background: rgba(46, 51, 56, 0.5);">
+		<h4>Log In</h4>
+		<br>
+
+
+		<form action="/login" method="post">
+			{% csrf_token %}
+			{% if messages %}
+				{% for message in messages %}
+				 {% if 'login' in message.tags %}
+								<span class="error" style="color:yellow";>{{ message }}</span><br />
+				{%endif%}
+				{% endfor %}
+			 {% endif %}
+
+<!====================================Login Email====================================>
+
+			<div class='form-group'>
+					<label>Email:</label>
+					<input class="form-control" type="text" name="uname" />
+			</div>
+
+<!====================================Login password====================================>
+			<div class='form-group'>
+					<label>Password:
+					</label>
+					<input class="form-control" type="password" name="password" />
+			</div>
+
+<!====================================Submit button====================================>
+			<div class='form-group'>
+				<input class='btn btn-success pull-right' type="submit" value="Login" role='button'/>
+			</div>
+		</form>
+	</div>
+
+</div>
+</div> <!-- end of container -->
+</body>
+</html>

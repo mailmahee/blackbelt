@@ -1,0 +1,68 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome Page</title>
+  {% include '../login_reg_app/header.html' %}
+  {% include '../login_reg_app/logoutindex.html' %}
+</head>
+
+<body>
+
+  <div>
+    {% if messages %}
+      {% for message in messages %}
+       {% if 'dashboard' in message.tags %}
+              <span class="error" style="color:red";>{{ message }}</span>
+      {%endif%}
+      {% endfor %}
+     {% endif %}
+
+      <div class="col-xs-10 col-xs-offset-1" style="margin-top:100px;">
+        <h3 style="margin-top:30px;margin-left:20px;">Here is a list of your friends!</h1><br />
+        <table class="table table-striped">
+          <thead class="thead-inverse">
+            <th>Date added</th>
+            <th>Action</th>
+          </thead>
+
+          <td>Garcia</td>
+          <td><u><a href="/user/1">View Profile</a></td>
+
+          {% for friend in myfriends %}
+          <tr>
+            <td>Garcia</td>
+            <td><u><a href="/user/1">View Profile</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+
+
+      <div class="col-xs-6 col-xs-offset-1" style="margin-top:100px;">
+        <h3 style="margin-top:30px;margin-left:20px;">Other Users not in your list</h1><br />
+        <table class="table table-striped">
+          <thead class="thead-inverse">
+            <th>Alias</th>
+            <th>Action</th>
+          </thead>
+
+          {% for user in otherusers %}
+          <tr>
+
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+
+
+  </div>
+
+
+
+
+
+
+</body>
+</html>
