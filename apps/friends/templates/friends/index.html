@@ -21,17 +21,15 @@
         <h3 style="margin-top:30px;margin-left:20px;">Here is a list of your friends!</h1><br />
         <table class="table table-striped">
           <thead class="thead-inverse">
-            <th>Date added</th>
+            <th>Alias</th>
             <th>Action</th>
           </thead>
 
-          <td>Garcia</td>
-          <td><u><a href="/user/1">View Profile</a></td>
 
-          {% for friend in myfriends %}
+          {% for friend in myFriends %}
           <tr>
-            <td>Garcia</td>
-            <td><u><a href="/user/1">View Profile</a></td>
+            <td>{{friend.uname}}</td>
+            <td><u><a href="/user/{{friend.id}}">View Profile</a><a style="margin-left:10px;"href="/remove/{{friend.id}}">Remove as Friend</a></td>
           </tr>
           {% endfor %}
         </table>
@@ -40,16 +38,17 @@
 
 
       <div class="col-xs-6 col-xs-offset-1" style="margin-top:100px;">
-        <h3 style="margin-top:30px;margin-left:20px;">Other Users not in your list</h1><br />
+        <h3 style="margin-top:30px;margin-left:20px;">Other Users not on your friends list :</h1><br />
         <table class="table table-striped">
           <thead class="thead-inverse">
             <th>Alias</th>
             <th>Action</th>
           </thead>
 
-          {% for user in otherusers %}
+          {% for user in otherUsers %}
           <tr>
-
+            <td><u><a href="/user/{{user.id}}">{{user.uname}}</a></td>
+            <td><a style="margin-left:10px;"href="/add/{{user.id}}">Add as Friend</a></td>
           </tr>
           {% endfor %}
         </table>

@@ -18,18 +18,17 @@ class UserManager(models.Manager):
         pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
         # pw is hashed, time to create new user
-        user = self.create(name=request.POST['name'].lower(), uname=request.POST['uname'].lower(), pw_hash=pw_hash)
+        user = self.create(name=request.POST['name'].lower(), uname=request.POST['uname'].lower(),uemail=request.POST['uemail'],pw_hash=pw_hash)
         return (True, user)
 
     def validateLogin(self, request):
         try:
-            uname = request.POST['uname'].lstrip()
+            uemail = request.POST['uemail'].lstrip()
 
+            if len(uemail) < 3:
+                return (False, "Email cannot be less than 3 characters")
 
-            if len(uname) < 3:
-                return (False, "Username cannot be less than 3 characters")
-
-            user = User.objects.get(uname=uname)
+            user = User.objects.get(uemail=uemail)
             # The email matched a record in the database, now test passwords
             password = request.POST['password'].encode()
 
@@ -72,7 +71,7 @@ class UserManager(models.Manager):
         elif not EMAIL_REGEX.match(uemail):
             messages.error(request, "This is not a valid email", extra_tags='regis_uemail')
             errors.append("This is not a valid email")
-        elif User.objects.filter(email=uemail).count():
+        elif User.objects.filter(uemail=uemail).count():
             messages.error(request, "The email is already taken is use.", extra_tags='regis_uemail')
             errors.append("The email is already taken is use.")
 
@@ -100,7 +99,7 @@ class UserManager(models.Manager):
 class User(models.Model):
     name = models.CharField(max_length = 100)
     uname = models.CharField(max_length = 50)
-    email = models.EmailField(max_length= 100)
+    uemail = models.EmailField(max_length= 100)
     pw_hash = models.CharField(max_length = 255)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

@@ -43,7 +43,8 @@ def log_user_in(request, user):
     request.session['user'] = {
         'id' : user.id,
         'name' : user.name,
-        'uname' : user.uname
+        'uname' : user.uname,
+        'uemail' : user.uemail
     }
     return redirect('/')
 
