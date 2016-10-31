@@ -45,7 +45,7 @@ class UserManager(models.Manager):
         name = request.POST['name'].lstrip()
         uname = request.POST['uname'].lstrip()
         uemail = request.POST['uemail'].lstrip()
-        udob = datetime.strptime(request.POST['dob'], '%Y-%m-%d')
+
 
 
         # ========================name validations ========================
@@ -88,7 +88,7 @@ class UserManager(models.Manager):
         if not request.POST['dob']:
             messages.error(request, "The date is empty - please enter a valid date.", extra_tags='regis_dob')
             errors.append("The date is empty - please select a valid date.")
-        elif udob > datetime.now():
+        elif datetime.strptime(request.POST['dob'], '%Y-%m-%d') > datetime.now():
             messages.error(request, "The date is not valid as it is in the future.", extra_tags='regis_dob')
             errors.append("The date is not valid as it is in the future.")
         return errors
